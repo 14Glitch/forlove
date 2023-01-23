@@ -31,12 +31,28 @@
     /* ==========================================================================
     countdown timer
     ========================================================================== */
+
+    const startDate = new Date("2022-08-06");
+    const endDate = new Date();
+    const diffInMilliseconds = endDate.getTime() - startDate.getTime();
+    const diffInMonths = Math.floor(diffInMilliseconds / (1000 * 3600 * 24 * 30));
+    const endDateWithoutMonths = new Date(endDate.setMonth(endDate.getMonth() - diffInMonths));
+    const diffInMillisecondsWithoutMonths = endDateWithoutMonths.getTime() - startDate.getTime();
+    const diffInSeconds = diffInMillisecondsWithoutMonths / 1000;
+    const diffInMinutes = diffInSeconds / 60;
+    const diffInHours = diffInMinutes / 60;
+    const diffInDays = Math.floor(diffInHours / 24);
+    const diffInHoursRemaining = Math.floor(diffInHours % 24);
+    const diffInMinutesRemaining = Math.floor(diffInMinutes % 60);
+    const diffInSecondsRemaining = Math.floor(diffInSeconds % 60);
+
      jQuery('#clock').countdown('2022/8/6 15:50:00',function(event){
       var $this=jQuery(this).html(event.strftime(''
-      +'<div class="time-entry days"><span>%-D</span> Days</div> '
-      +'<div class="time-entry hours"><span>%H</span> Hours</div> '
-      +'<div class="time-entry minutes"><span>%M</span> Minutes</div> '
-      +'<div class="time-entry seconds"><span>%S</span> Seconds</div> '));
+      +`<div class="time-entry months"><span>${diffInMonths}</span> Months</div> `
+      +`<div class="time-entry days"><span>${diffInDays}</span> Days</div> `
+      +`<div class="time-entry hours"><span>${diffInHoursRemaining}</span> Hours</div> `
+      +`<div class="time-entry minutes"><span>${diffInMinutesRemaining}</span> Minutes</div> `
+      +`<div class="time-entry seconds"><span>${diffInSecondsRemaining}</span> Seconds</div> `));
     });
 
     /* WOW Scroll Spy
